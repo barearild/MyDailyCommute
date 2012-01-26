@@ -34,7 +34,7 @@ public abstract class Place {
 		district = jsonObject.getString(DISTRICT);
 		location = new GeoPoint(jsonObject.getInt(LOCATION_X), jsonObject.getInt(LOCATION_Y));
 		type = StopType.getStopType(jsonObject.getInt(TYPE));
-		shortName = jsonObject.getString(SHORT_NAME);
+        shortName = getStringWithNull(SHORT_NAME, jsonObject);
 	}
 
 	public int getId() {
@@ -97,6 +97,16 @@ public abstract class Place {
 
 		return value;
 	}
+    
+    protected String getStringWithNull(String tag, JSONObject jsonObject) throws JSONException {
+        String value = jsonObject.getString(tag);
+        
+        if(value.equals("null")) {
+            return null;
+        } else {
+            return value;
+        }
+    }
 
 	/**
 	 * "Zone": null, "X": 0, "Y": 0, "ID": 1000027573, "Name":
