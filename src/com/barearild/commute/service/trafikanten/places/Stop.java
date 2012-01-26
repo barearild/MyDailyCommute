@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class Stop extends Place {
 
 	protected static final String WALKING_DISTANCE = "WalkingDistance";
 	protected static final String ARRIVAL_TIME = "ArrivalTime";
-	protected static final String ALIGHTNING_ALLOWED = "AlightningAllowed";
+	protected static final String ALIGHTING_ALLOWED = "AlightingAllowed";
 	protected static final String DEPARTURE_TIME = "DepartureTime";
 	protected static final String BOARDING_ALLOWED = "BoardingAllowed";
 	protected static final String REALTIME_STOP = "RealTimeStop";
@@ -19,13 +17,13 @@ public class Stop extends Place {
 	protected static final String ZONE = "Zone";
 	protected static final String STOPS = "Stops";
 
-	int walkingDistance;
-	int arrivalTime;
-	boolean alightningAllowed;
-	int departureTime;
+	Integer walkingDistance;
+	Integer arrivalTime;
+	boolean alightingAllowed;
+	Integer departureTime;
 	boolean boardingAllowed;
 	boolean realTimeStop;
-	int rank;
+	Integer rank;
 	// ArrayList<Line> lines;
 	// ArrayList<StopPoint> stopPoints;
 	String zone;
@@ -35,36 +33,33 @@ public class Stop extends Place {
 		super();
 	}
 
-	public Stop(JSONObject stopJsonObject) {
+	public Stop(JSONObject stopJsonObject) throws JSONException {
 		super(stopJsonObject);
 
-		try {
-			walkingDistance = stopJsonObject.getInt(WALKING_DISTANCE);
-			arrivalTime = stopJsonObject.getInt(ARRIVAL_TIME);
-			alightningAllowed = stopJsonObject.getBoolean(ALIGHTNING_ALLOWED);
-			departureTime = stopJsonObject.getInt(DEPARTURE_TIME);
-			boardingAllowed = stopJsonObject.getBoolean(BOARDING_ALLOWED);
-			realTimeStop = stopJsonObject.getBoolean(REALTIME_STOP);
-			rank = stopJsonObject.getInt(RANK);
-		} catch (JSONException e) {
-			Log.e(Stop.class.getSimpleName(), e.getMessage());
-		}
+		walkingDistance = getIntegerNullSafe(WALKING_DISTANCE, stopJsonObject);
+		arrivalTime = getIntegerNullSafe(ARRIVAL_TIME, stopJsonObject);
+		alightingAllowed = stopJsonObject.getBoolean(ALIGHTING_ALLOWED);
+		departureTime = getIntegerNullSafe(DEPARTURE_TIME, stopJsonObject);
+		boardingAllowed = stopJsonObject.getBoolean(BOARDING_ALLOWED);
+		realTimeStop = stopJsonObject.getBoolean(REALTIME_STOP);
+		rank = getIntegerNullSafe(RANK, stopJsonObject);
+		zone = stopJsonObject.getString(ZONE);
 
 	}
 
-	public int getWalkingDistance() {
+	public Integer getWalkingDistance() {
 		return walkingDistance;
 	}
 
-	public int getArrivalTime() {
+	public Integer getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public boolean isAlightningAllowed() {
-		return alightningAllowed;
+	public boolean isAlightingAllowed() {
+		return alightingAllowed;
 	}
 
-	public int getDepartureTime() {
+	public Integer getDepartureTime() {
 		return departureTime;
 	}
 
@@ -76,7 +71,7 @@ public class Stop extends Place {
 		return realTimeStop;
 	}
 
-	public int getRank() {
+	public Integer getRank() {
 		return rank;
 	}
 

@@ -18,7 +18,7 @@ public abstract class Place {
 	protected static final String TYPE = "Type";
 	protected static final String SHORT_NAME = "ShortName";
 
-	int id;
+	Integer id;
 	String name = null;
 	String district = null;
 	GeoPoint location = null;
@@ -28,29 +28,13 @@ public abstract class Place {
 	public Place() {
 	}
 
-	public Place(JSONObject placeJsonObject) {
-		try {
-			if (placeJsonObject.has(ID)) {
-				id = placeJsonObject.getInt(ID);
-			}
-			if (placeJsonObject.has(NAME)) {
-				name = placeJsonObject.getString(NAME);
-			}
-			if (placeJsonObject.has(DISTRICT)) {
-				district = placeJsonObject.getString(DISTRICT);
-			}
-			if (placeJsonObject.has(LOCATION_X) && placeJsonObject.has(LOCATION_Y)) {
-				location = new GeoPoint(placeJsonObject.getInt(LOCATION_X), placeJsonObject.getInt(LOCATION_Y));
-			}
-			if (placeJsonObject.has(TYPE)) {
-				type = StopType.getStopType(placeJsonObject.getInt(TYPE));
-			}
-			if (placeJsonObject.has(SHORT_NAME)) {
-				shortName = placeJsonObject.getString(SHORT_NAME);
-			}
-		} catch (JSONException e) {
-			Log.e(TAG, e.getMessage());
-		}
+	public Place(JSONObject jsonObject) throws JSONException {
+		id = getIntegerNullSafe(ID, jsonObject);
+		name = jsonObject.getString(NAME);
+		district = jsonObject.getString(DISTRICT);
+		location = new GeoPoint(jsonObject.getInt(LOCATION_X), jsonObject.getInt(LOCATION_Y));
+		type = StopType.getStopType(jsonObject.getInt(TYPE));
+		shortName = jsonObject.getString(SHORT_NAME);
 	}
 
 	public int getId() {
@@ -84,6 +68,7 @@ public abstract class Place {
 				case 0:
 					return new Stop(jsonObject);
 				case 1:
+					return new Area(jsonObject);
 				case 2:
 				case 3:
 				default:
@@ -95,6 +80,22 @@ public abstract class Place {
 		}
 
 		return null;
+	}
+
+	protected Integer getIntegerNullSafe(String tag, JSONObject jsonObject) {
+		Integer value = null;
+
+		if (jsonObject.has(tag) && !jsonObject.isNull(tag)) {
+			try {
+				value = jsonObject.getInt(tag);
+			} catch (NullPointerException e) {
+				// ignore
+			} catch (JSONException e) {
+				Log.e(TAG, e.getMessage());
+			}
+		}
+
+		return value;
 	}
 
 	/**

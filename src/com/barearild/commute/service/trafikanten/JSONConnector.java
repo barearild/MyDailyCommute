@@ -19,7 +19,7 @@ public class JSONConnector {
 		JSONArray result = null;
 		StringBuilder responseString = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet("http://api-test.trafikanten.no/" + request);
+		HttpGet httpGet = new HttpGet(request);
 		
 		try {
 			HttpResponse response = client.execute(httpGet);

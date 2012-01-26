@@ -33,7 +33,7 @@ public class StopBuilder {
 		return this;
 	}
 	
-	public StopBuilder type(int type) {
+	public StopBuilder type(Integer type) {
 		stop.type = StopType.getStopType(type);
 		return this;
 	}
@@ -48,17 +48,17 @@ public class StopBuilder {
 		return this;
 	}
 	
-	public StopBuilder arrivalTime(int arrivalTime) {
+	public StopBuilder arrivalTime(Integer arrivalTime) {
 		stop.arrivalTime = arrivalTime;
 		return this;
 	}
 	
 	public StopBuilder alightningAllowed(boolean allowed) {
-		stop.alightningAllowed = allowed;
+		stop.alightingAllowed = allowed;
 		return this;
 	}
 	
-	public StopBuilder departureTime(int departureTime) {
+	public StopBuilder departureTime(Integer departureTime) {
 		stop.departureTime = departureTime;
 		return this;
 	}
@@ -73,7 +73,7 @@ public class StopBuilder {
 		return this;
 	}
 	
-	public StopBuilder rank(int rank) {
+	public StopBuilder rank(Integer rank) {
 		stop.rank = rank;
 		return this;
 	}
