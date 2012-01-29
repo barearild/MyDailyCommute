@@ -22,7 +22,6 @@ public abstract class Place {
 	String name = null;
 	String district = null;
 	GeoPoint location = null;
-	StopType type = StopType.None;
 	String shortName = null;
 
 	public Place() {
@@ -33,7 +32,6 @@ public abstract class Place {
 		name = jsonObject.getString(NAME);
 		district = jsonObject.getString(DISTRICT);
 		location = new GeoPoint(jsonObject.getInt(LOCATION_X), jsonObject.getInt(LOCATION_Y));
-		type = StopType.getStopType(jsonObject.getInt(TYPE));
         shortName = getStringWithNull(SHORT_NAME, jsonObject);
 	}
 
@@ -53,9 +51,7 @@ public abstract class Place {
 		return location;
 	}
 
-	public StopType getType() {
-		return type;
-	}
+	public abstract StopType getType();
 
 	public String getShortName() {
 		return shortName;

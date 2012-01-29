@@ -34,7 +34,7 @@ public class StopBuilder {
 	}
 	
 	public StopBuilder type(Integer type) {
-		stop.type = StopType.getStopType(type);
+//		stop.type = StopType.getStopType(type);
 		return this;
 	}
 	

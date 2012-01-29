@@ -15,9 +15,10 @@ public class Stop extends Place {
 	protected static final String REALTIME_STOP = "RealTimeStop";
 	protected static final String RANK = "Rank";
 	protected static final String ZONE = "Zone";
-	protected static final String STOPS = "Stops";
 
-	Integer walkingDistance;
+    protected static final StopType TYPE = StopType.Stop;
+
+    Integer walkingDistance;
 	Integer arrivalTime;
 	boolean alightingAllowed;
 	Integer departureTime;
@@ -47,7 +48,12 @@ public class Stop extends Place {
 
 	}
 
-	public Integer getWalkingDistance() {
+    @Override
+    public StopType getType() {
+        return TYPE;
+    }
+
+    public Integer getWalkingDistance() {
 		return walkingDistance;
 	}
 

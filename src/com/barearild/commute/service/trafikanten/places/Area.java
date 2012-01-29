@@ -9,6 +9,8 @@ import org.json.JSONObject;
 public class Area extends Place {
 	
 	protected static final String STOPS = "Stops";
+
+    protected static final StopType TYPE = StopType.Area;
 	
 	ArrayList<Stop> stops = new ArrayList<Stop>();
 
@@ -27,7 +29,12 @@ public class Area extends Place {
 		}
 	}
 
-	public ArrayList<Stop> getStops() {
+    @Override
+    public StopType getType() {
+        return TYPE;
+    }
+
+    public ArrayList<Stop> getStops() {
 		return stops;
 	}
 	
